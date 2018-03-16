@@ -13,34 +13,28 @@ Usage
 
 Hosted on Docker Hub: https://hub.docker.com/r/acmephp/testing-ca/
 
-Start the boulder container in background.
+Start the server container in background.
 
 ```bash
-docker run -d --net host acmephp/testing-ca
+docker run -d --net host --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
+docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
 ```
 
-> By design, to test the domain, boulder will resolve the domain to 127.0.0.1,
-and call the given URL `http://mydomain.com:5002/.well-known/acme-challenge/${TOKEN}`.
-That's why, You **MUST** use the flag `--net host` to run the boulder container
-in the same network than your application.
+> By design, to CA server will resolve the DNS for domains you are requesting.
+> For testing purpose you have 2 way to resolve challenges
+> * Running several containers in the same network. The domain to test is the
+    name of the container. Docker will automatically resolve the name of the
+    container
+> * Starting `testing-ca` on the host network, and declare domains  with
+    `--add-host`
+
+```bash
+docker run -d --net host --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
+docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
+```
 
 Configure your application to call the testing CA with the following endpoints
 
-```yaml
-endpoint: http://127.0.0.1:4000
-agreement: http://boulder:4000/terms/v1
 ```
-
-Customization
--------------
-
-Because boulder uses a MySQL and RabbitMQ server and because boulder has to
-run with option `--net host` you may run into a port conflict. You can customize
-those ports with the following environment variables:
-
-```
-BOULDER_MYSQL_PORT=43306    # MySQL server
-BOULDER_AMQP_PORT=45672     # RabbitMq server
-BOULDER_PORT=4000           # Boulder front
-BOULDER_CALLBACK_PORT=5002  # Application's challenge
+https://127.0.0.1:14000/dir
 ```
