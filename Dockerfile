@@ -1,8 +1,6 @@
-FROM golang:1.9-alpine
+FROM golang:1.11-alpine
 
-RUN apk add --no-cache \
-        git
-
+RUN apk add --no-cache git
 RUN go get -u github.com/letsencrypt/pebble/...
 
 WORKDIR /go/src/github.com/letsencrypt/pebble
