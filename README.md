@@ -16,8 +16,8 @@ Hosted on Docker Hub: https://hub.docker.com/r/acmephp/testing-ca/
 Start the server container in background.
 
 ```bash
-docker run -d --net host --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
-docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
+docker run -d --net host --add-host acmephp.com:127.0.0.1 acmephp/testing-ca
+docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca
 ```
 
 > By design, to CA server will resolve the DNS for domains you are requesting.
@@ -29,8 +29,8 @@ docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
     `--add-host`
 
 ```bash
-docker run -d --net host --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
-docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca:2
+docker run -d --net host --add-host acmephp.com:127.0.0.1 acmephp/testing-ca
+docker run -d --add-host acmephp.com:127.0.0.1 acmephp/testing-ca
 ```
 
 Configure your application to call the testing CA with the following endpoints
